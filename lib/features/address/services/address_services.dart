@@ -79,7 +79,7 @@ class AddressServices {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      showSnackBar(context, "$e");
       print(e);
     }
   }

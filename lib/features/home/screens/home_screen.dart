@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
 
+import 'package:amazon/features/home/services/home_services.dart';
 import 'package:amazon/features/home/widgets/address_box.dart';
 import 'package:amazon/features/home/widgets/carousel_slider.dart';
 import 'package:amazon/features/home/widgets/deal_of_day.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeServices homeServices = HomeServices();
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
@@ -94,10 +96,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   margin: EdgeInsets.symmetric(
                     horizontal: 10,
                   ),
-                  child: Icon(
-                    Icons.mic,
-                    color: Colors.black,
-                    size: 25,
+                  child: InkWell(
+                    onTap: () {
+                    //  homeServices.fetchAllProducts(context: context);
+                    },
+                    child: Icon(
+                      Icons.mic,
+                      color: Colors.black,
+                      size: 25,
+                    ),
                   ),
                 )
               ],
@@ -119,6 +126,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CarouselImage(),
               DealOfDay(),
+              // FutureBuilder(
+              //     future: homeServices.fetchAllProducts(context: context),
+              //     builder: ((context, snapshot) {
+              //       return Text('data');
+              //     }))
             ],
           ),
         ));

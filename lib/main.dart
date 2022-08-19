@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
           ,
         )
         ,
-        useMaterial3: true, // optional
+       // useMaterial3: true, // optional
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
       home:

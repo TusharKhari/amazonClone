@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
 
+import 'package:amazon/common/widgets/loader.dart';
 import 'package:amazon/features/cart/services/cart_services.dart';
 import 'package:amazon/features/product_details/services/product_details_services.dart';
 import 'package:amazon/providers/user_provider.dart';
@@ -20,7 +21,7 @@ class CartProduct extends StatefulWidget {
 class _CartProductState extends State<CartProduct> {
   final ProductDetailServices productDetailServices = ProductDetailServices();
   final CartServices cartServices = CartServices();
-
+  Product? productQty;
   void increaseQuantity(Product product) {
     productDetailServices.addToCart(context: context, product: product);
   }
@@ -32,10 +33,15 @@ class _CartProductState extends State<CartProduct> {
   @override
   Widget build(BuildContext context) {
     final productCart = context.watch<UserProvider>().user.cart[widget.index];
+
     final product = Product.fromMap(productCart['product']);
+    // final productQty = Product.fromMap(map)
+
     final quantity = productCart["quantity"];
     // {"product" : {}, "quantity"}
-    return GestureDetector(
+    return 
+    //productQty == null ? Loader() :
+    GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, ProductDetailScreen.routeName,
             arguments: product);
@@ -106,8 +112,11 @@ class _CartProductState extends State<CartProduct> {
                         left: 10,
                         top: 5,
                       ),
-                      child: Text(
-                        'In Stock',
+                      child: 
+                      // product == null ? Loader():
+                      Text(
+                       'In Stock',
+                     //  productQty!.quantity.toString(),
                         style: TextStyle(
                             // fontSize: 20,
                             // fontWeight: FontWeight.bold,
@@ -135,7 +144,7 @@ class _CartProductState extends State<CartProduct> {
                       InkWell(
                         onTap: () {
                           decreaseQuantity(product);
-                          print( "decreaseQuantity(product) ");
+                          //  print( "decreaseQuantity(product) ");
                         },
                         child: Container(
                           width: 35,

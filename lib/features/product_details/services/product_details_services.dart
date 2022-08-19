@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:amazon/constants/error_handling.dart';
 import 'package:amazon/constants/global_variable.dart';
 import 'package:amazon/constants/utils.dart';
+import 'package:amazon/features/cart/screens/cart_screen.dart';
 import 'package:amazon/models/product.dart';
 import 'package:amazon/models/user.dart';
 import 'package:amazon/providers/user_provider.dart';
@@ -38,11 +39,51 @@ class ProductDetailServices {
           User user =
               userProvider.user.copyWith(cart: jsonDecode(res.body)['cart']);
           userProvider.setUserFromModel(user);
-         //  print(user);
+          //  print(user);
+          showSnackBar(context, "Product Added to Cart");
         },
       );
       //  print(res.statusCode);
-     
+
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void buyNow({
+    required BuildContext context,
+    required Product product,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response res = await http.post(
+        Uri.parse(
+          "$uri/api/add-to-cart",
+        ),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "x-auth-token": userProvider.user.token
+        },
+        body: jsonEncode({
+          "id": product.id!,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          User user =
+              userProvider.user.copyWith(cart: jsonDecode(res.body)['cart']);
+          userProvider.setUserFromModel(user);
+          //  print(user);
+          //showSnackBar(context, "Product Added to Cart");
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => CartScreen()));
+        },
+      );
+      //  print(res.statusCode);
+
     } catch (e) {
       showSnackBar(context, e.toString());
     }

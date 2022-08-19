@@ -53,6 +53,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
+  void buyNow() {
+    productDetailServices.buyNow(
+      context: context,
+      product: widget.product,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,6 +158,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ],
               ),
             ),
+            //  Text(widget.product.quantity.toString()),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               child: Text(
@@ -202,7 +210,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         text: ' \$${widget.product.price}',
                         style: TextStyle(
                           fontSize: 22,
-                          color: Colors.red,
+                          color: Colors.orange,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -217,24 +225,38 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               color: Colors.black12,
               height: 5,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: 'Buy Now',
-                onTap: () {},
-              ),
-            ),
+            widget.product.quantity == 0.0
+                ? Center(
+                    child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'out of stock',
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ))
+                : Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomButton(
+                      text: 'Buy Now',
+                      onTap: buyNow,
+                    ),
+                  ),
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: 'Add to Cart',
-                onTap: addToCart,
-                color: Color.fromRGBO(254, 216, 19, 1),
-              ),
-            ),
+            widget.product.quantity == 0.0
+                ? Text('')
+                : Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomButton(
+                      text: 'Add to Cart',
+                      onTap: addToCart,
+                      color: Color.fromRGBO(254, 216, 19, 1),
+                    ),
+                  ),
             SizedBox(
               height: 10,
             ),
