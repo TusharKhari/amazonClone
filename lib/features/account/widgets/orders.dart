@@ -72,7 +72,7 @@ class _OrdersState extends State<Orders> {
               ),
               // display orders
 
-GridView.builder(
+              GridView.builder(
                   shrinkWrap: true,
                   // scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.only(left: 30),
@@ -83,57 +83,59 @@ GridView.builder(
                   ),
                   itemCount: orders!.length,
                   itemBuilder: (context, index) {
-                  //  final product = allProductList![index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, OrderDetailsScreen.routeName,
-                            arguments: orders![index],);
-                      },
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 158,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black12,
-                                  width: 0.5,
+                    //  final product = allProductList![index];
+                    return
+                     GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                OrderDetailsScreen.routeName,
+                                arguments: orders![index],
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 158,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black12,
+                                        width: 0.5,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: SingleProduct(
+                                          image: orders![index]
+                                              .products[0]
+                                              .images[0]),
+                                      //
+                                      //child:
+                                      // Image.network(
+                                      //   product.images[0],
+                                      //   width: 150,
+                                      //   fit: BoxFit.fitWidth,
+                                      // ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                     child: user.type == "admin" &&
-                                orders![index].status == 1
-                            ? SizedBox()
-                            : SingleProduct(
-                                image: orders![index].products[0].images[0]),
-                                //
-                                //child: 
-                                // Image.network(
-                                //   product.images[0],
-                                //   width: 150,
-                                //   fit: BoxFit.fitWidth,
+                                // Container(
+                                //   alignment: Alignment.topLeft,
+                                //   padding: EdgeInsets.only(
+                                //     left: 0,
+                                //     top: 5,
+                                //     right: 15,
+                                //   ),
+                                //   child: Text(
+                                //     product.name,
+                                //     maxLines: 1,
+                                //     overflow: TextOverflow.ellipsis,
+                                //   ),
                                 // ),
-                              ),
+                              ],
                             ),
-                          ),
-                          // Container(
-                          //   alignment: Alignment.topLeft,
-                          //   padding: EdgeInsets.only(
-                          //     left: 0,
-                          //     top: 5,
-                          //     right: 15,
-                          //   ),
-                          //   child: Text(
-                          //     product.name,
-                          //     maxLines: 1,
-                          //     overflow: TextOverflow.ellipsis,
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    );
+                          );
                   }),
               // Container(
               //   height: 100,
@@ -143,7 +145,7 @@ GridView.builder(
               //     right: 0,
               //   ),
               //   child:  ListView.builder(
-                  
+
               //       itemCount: orders!.length,
               //       //  scrollDirection: Axis.horizontal,
               //       itemBuilder: ((context, index) {

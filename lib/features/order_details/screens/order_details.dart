@@ -256,34 +256,32 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   },
                   steps: [
                     Step(
-                      title: Text('Pending'),
-                      content: Text('Your order is yet to be Packed'),
+                      title: Text('Pending and Shipped'),
+                      content: Text('Your order is yet to be Packed and Shipped'),
                       isActive: currentStep > 0,
                       state: currentStep > 0
                           ? StepState.complete
                           : StepState.indexed,
                     ),
                     Step(
-                      title: Text('Completed'),
-                      content: Text('Your order has been Packed and Shipped'),
-                      isActive: currentStep >= 1,
-                      state: currentStep >= 1
+                      title: Text('On the way'),
+                      content: Text('Your order is on the way to your home'),
+                      isActive: currentStep >= 2,
+                      state: currentStep >= 2
                           ? StepState.complete
                           : StepState.indexed,
                     ),
                     // Step(
-                    //   title: Text('Received'),
-                    //   content: Text(
-                    //       'Your order has been delivered and signed by you.'),
+                    //   title: Text('Shipped'),
+                    //   content: Text('Your order has been Shipped!'),
                     //   isActive: currentStep > 2,
                     //   state: currentStep > 2
                     //       ? StepState.complete
                     //       : StepState.indexed,
                     // ),
                     // Step(
-                    //   title: Text('Delivered'),
-                    //   content: Text(
-                    //       'Your order has been delivered and signed by you!'),
+                    //   title: Text('On the way'),
+                    //   content: Text('Your order is on the way to your home'),
                     //   isActive: currentStep >= 3,
                     //   state: currentStep >= 3
                     //       ? StepState.complete
