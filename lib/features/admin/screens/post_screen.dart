@@ -60,7 +60,7 @@ class _PostScreenState extends State<PostScreen> {
                 final productData = products![index];
                 return Column(
                   children: [
-                    Text(productData.quantity.toString()),
+                    //    Text(productData.quantity.t)
                     SizedBox(
                       height: 140,
                       child: SingleProduct(image: productData.images[0]),
@@ -75,6 +75,19 @@ class _PostScreenState extends State<PostScreen> {
                             maxLines: 2,
                           ),
                         ),
+                        productData.quantity == 0.0
+                            ? Text(
+                                'out of stock',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.red,
+                                ),
+                              )
+                            : Text(
+                                "Avl Qty: ${productData.quantity.toInt()}",
+                                style:
+                                    TextStyle(fontSize: 16, color: Colors.teal),
+                              ),
                         IconButton(
                           onPressed: () {
                             deleteProduct(productData, index);

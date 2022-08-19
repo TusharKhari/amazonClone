@@ -6,6 +6,8 @@ import 'package:amazon/features/admin/screens/order_screen.dart';
 import 'package:amazon/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../account/services/account_services.dart';
+
 class AdminScreen extends StatefulWidget {
   AdminScreen({Key? key}) : super(key: key);
 
@@ -40,33 +42,43 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: AppBar(
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: GlobalVariables.appBarGradient,
+        preferredSize: Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: GlobalVariables.appBarGradient,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  'assets/images/amazon_in.png',
+                  width: 120,
+                  height: 45,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                'Admin',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+            ],
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () => AccountServices().logOut(context),
+                icon: Icon(Icons.logout_outlined),
               ),
             ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: Image.asset(
-                    'assets/images/amazon_in.png',
-                    width: 120,
-                    height: 45,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  'Admin',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                )
-              ],
-            ),
-          )),
+          ],
+        ),
+      ),
       body:
           //
           pages[_page],

@@ -88,13 +88,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             'Add Product',
             style: TextStyle(color: Colors.black),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(onPressed: () =>  AccountServices().logOut(context), 
-              icon: Icon(Icons.logout_outlined),),
-            ),
-          ],
+       
         ),
       ),
       body: SingleChildScrollView(

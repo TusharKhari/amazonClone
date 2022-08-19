@@ -8,7 +8,8 @@ import 'package:amazon/features/admin/modals/sales.dart';
 import 'package:amazon/models/order.dart';
 import 'package:amazon/models/product.dart';
 import 'package:amazon/providers/user_provider.dart';
-import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:cloudinary_public/cloudinary_public.dart' as cloudinaryPublic;
+import 'package:cloudinary_sdk/cloudinary_sdk.dart' as cloudinarySdk;
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -25,16 +26,19 @@ class AdminServices {
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
     try {
-      final cloudinary = CloudinaryPublic('dgps2a3mu', 'eod9dfl3');
+      final cloudinary = cloudinaryPublic.CloudinaryPublic(
+          'dgps2a3mu', 'eod9dfl3',
+          cache: true);
       List<String> imageUrls = [];
 
       for (int i = 0; i < images.length; i++) {
-        CloudinaryResponse res = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(
+        cloudinaryPublic.CloudinaryResponse res = await cloudinary.uploadFile(
+          cloudinaryPublic.CloudinaryFile.fromFile(
             images[i].path,
             folder: name,
           ),
         );
+
         imageUrls.add(res.secureUrl);
       }
 
@@ -110,7 +114,7 @@ class AdminServices {
       required Product product,
       required VoidCallback onSuccess}) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
-
+    final cloudinary = cloudinarySdk.Cloudinary.full(apiKey: "532858492696328", apiSecret: "4U5O64yLm_tHpXkqhVYLyiqCkXE", cloudName: "dgps2a3mu");
     try {
       http.Response res = await http.post(
         Uri.parse("$uri/admin/delete-product"),
@@ -122,7 +126,11 @@ class AdminServices {
           "id": product.id,
         }),
       );
-
+      final res1 = await cloudinary.deleteResources(
+        urls:  product.images,
+        resourceType:cloudinarySdk.CloudinaryResourceType.image,
+        prefix: product.name,
+      );
       httpErrorHandle(
         response: res,
         context: context,
@@ -229,7 +237,7 @@ class AdminServices {
             Sales("Essentials", response["essentialEarnings"]),
             Sales("Books", response["booksEarnings"]),
             Sales("Appliances", response["applianceEarnings"]),
-           Sales("Fashion", response["fashionEarnings"]),
+            Sales("Fashion", response["fashionEarnings"]),
           ];
         },
       );
@@ -237,8 +245,8 @@ class AdminServices {
       showSnackBar(context, e.toString());
     }
     return {
-      "sales" : sales,
-      "totalEarnings" :totalEarning,
+      "sales": sales,
+      "totalEarnings": totalEarning,
     };
   }
 }
