@@ -273,24 +273,29 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
-            RatingBar.builder(
-              initialRating: myRating,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4),
-              itemBuilder: (context, _) {
-                return Icon(
-                  Icons.star,
-                  color: GlobalVariables.secondaryColor,
-                );
-              },
-              onRatingUpdate: (rating) {
-                productDetailServices.rateProduct(
-                    context: context, product: widget.product, rating: rating);
-                //  print(rating);
-              },
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: RatingBar.builder(
+                initialRating: myRating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4),
+                itemBuilder: (context, _) {
+                  return Icon(
+                    Icons.star,
+                    color: GlobalVariables.secondaryColor,
+                  );
+                },
+                onRatingUpdate: (rating) {
+                  productDetailServices.rateProduct(
+                      context: context,
+                      product: widget.product,
+                      rating: rating);
+                  //  print(rating);
+                },
+              ),
             )
           ],
         ),

@@ -12,7 +12,7 @@ import '../screens/product_details_screen.dart';
 class AllProducts extends StatefulWidget {
   static const String routeName = '/allProducts';
   AllProducts({super.key});
-
+  
   @override
   State<AllProducts> createState() => _AllProductsState();
 }

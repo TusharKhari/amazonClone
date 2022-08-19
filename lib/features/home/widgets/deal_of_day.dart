@@ -78,7 +78,7 @@ class _DealOfDayState extends State<DealOfDay> {
                             navigateToAllProducts(context);
                           },
                           child: Text(
-                            "See all the deals",
+                            "See all the deals  ",
                             style: TextStyle(
                               color: Colors.cyan[800],
                               fontSize: 22,
@@ -148,23 +148,38 @@ class _DealOfDayState extends State<DealOfDay> {
 
                     //   ),
                     // ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 15,
-                      ).copyWith(left: 15),
-                      alignment: Alignment.topLeft,
-                      child: InkWell(
-                        onTap: () {
+
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(
+                    //     vertical: 15,
+                    //   ).copyWith(left: 15),
+                    //   alignment: Alignment.topLeft,
+                    //   child:
+                    //   InkWell(
+                    //     onTap: () {
+                    //       navigateToAllProducts(context);
+                    //     },
+                    //     child: Text(
+                    //       "See all the deals",
+                    //       style: TextStyle(
+                    //         color: Colors.cyan[800],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    ElevatedButton(
+                        onPressed: () {
                           navigateToAllProducts(context);
                         },
-                        child: Text(
-                          "See all the deals",
-                          style: TextStyle(
-                            color: Colors.cyan[800],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Explore all the products >',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                        ))
                     //   FutureBuilder(
                     // future: homeServices.fetchAllProducts(context: context),
                     // builder: ((context, snapshot) {
