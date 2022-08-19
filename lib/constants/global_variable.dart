@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-//String uri = 'https://amazon-server-khari.herokuapp.com';
- String uri = 'http://localhost:3000';
+String uri = 'https://amazon-server-khari.herokuapp.com';
+ //String uri = 'http://localhost:3000';
 // String uri = 'http://112.79.99.128:3000';
 
 
