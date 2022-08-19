@@ -22,6 +22,8 @@ class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController areaController = TextEditingController();
   final TextEditingController pinCodeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  final TextEditingController phoneNoController = TextEditingController();
+  final TextEditingController receiverNameController = TextEditingController();
   final _addressFormKey = GlobalKey<FormState>();
 
   String addressToBeUsed = "";
@@ -47,10 +49,15 @@ class _AddressScreenState extends State<AddressScreen> {
     areaController.dispose();
     pinCodeController.dispose();
     cityController.dispose();
+    phoneNoController.dispose();
+    receiverNameController.dispose();
   }
 
   void onApplePayResult(res) {
-    if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
       addressServices.saveUserAddress(
         context: context,
         address: addressToBeUsed,
@@ -63,7 +70,10 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 
   void onGooglePayResult(res) {
-     if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
       addressServices.saveUserAddress(
         context: context,
         address: addressToBeUsed,
@@ -81,12 +91,14 @@ class _AddressScreenState extends State<AddressScreen> {
     bool isForm = flatBuildingController.text.isNotEmpty ||
         areaController.text.isNotEmpty ||
         pinCodeController.text.isNotEmpty ||
-        cityController.text.isNotEmpty;
+        cityController.text.isNotEmpty ||
+        phoneNoController.text.isNotEmpty||
+        receiverNameController.text.isNotEmpty;
 
     if (isForm) {
       if (_addressFormKey.currentState!.validate()) {
         addressToBeUsed =
-            "${flatBuildingController.text}, ${areaController.text} , ${cityController.text} - ${pinCodeController.text} ";
+            "${receiverNameController.text}, ${flatBuildingController.text}, ${areaController.text} , ${cityController.text}, PIN - ${pinCodeController.text}, Phone No. - ${phoneNoController.text}";
       } else {
         throw Exception("Please enter all the values");
       }
@@ -155,6 +167,20 @@ class _AddressScreenState extends State<AddressScreen> {
                 child: Column(
                   children: [
                     CustomTextField(
+                      controller: receiverNameController,
+                      hintText: 'Receiver\'s Name',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextField(
+                      controller: phoneNoController,
+                      hintText: 'Mobile No.',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextField(
                       controller: flatBuildingController,
                       hintText: 'Flat, House no, Building',
                     ),
@@ -163,7 +189,7 @@ class _AddressScreenState extends State<AddressScreen> {
                     ),
                     CustomTextField(
                       controller: areaController,
-                      hintText: 'Area, Street',
+                      hintText: 'Area, Street, Village',
                     ),
                     SizedBox(
                       height: 10,
@@ -177,7 +203,7 @@ class _AddressScreenState extends State<AddressScreen> {
                     ),
                     CustomTextField(
                       controller: cityController,
-                      hintText: 'Town/City',
+                      hintText: 'Town/City/District/State',
                     ),
                     SizedBox(
                       height: 10,

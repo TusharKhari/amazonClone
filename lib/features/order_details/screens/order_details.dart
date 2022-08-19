@@ -131,7 +131,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: 
+      //user.type == "admin" &&
+      // widget.order.status < 2 ? SizedBox() :
+       SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -159,6 +162,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       Text("Order ID:                 ${widget.order.id} "),
                       Text(
                           "Order Total:                 \$${widget.order.totalPrice} "),
+                      Text("Address:                 ${widget.order.address} "),
                     ]),
               ),
               SizedBox(
@@ -247,7 +251,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   steps: [
                     Step(
                       title: Text('Pending'),
-                      content: Text('Your order is yet to be delivered'),
+                      content: Text('Your order is yet to be Packed'),
                       isActive: currentStep > 0,
                       state: currentStep > 0
                           ? StepState.complete
@@ -256,30 +260,30 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     Step(
                       title: Text('Completed'),
                       content: Text(
-                          'Your order has been delivered, you are yet to sign.'),
-                      isActive: currentStep > 1,
-                      state: currentStep > 1
+                          'Your order has been Packed and Shipped'),
+                      isActive: currentStep >= 1,
+                      state: currentStep >= 1
                           ? StepState.complete
                           : StepState.indexed,
                     ),
-                    Step(
-                      title: Text('Received'),
-                      content: Text(
-                          'Your order has been delivered and signed by you.'),
-                      isActive: currentStep > 2,
-                      state: currentStep > 2
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                    Step(
-                      title: Text('Delivered'),
-                      content: Text(
-                          'Your order has been delivered and signed by you!'),
-                      isActive: currentStep >= 3,
-                      state: currentStep >= 3
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
+                    // Step(
+                    //   title: Text('Received'),
+                    //   content: Text(
+                    //       'Your order has been delivered and signed by you.'),
+                    //   isActive: currentStep > 2,
+                    //   state: currentStep > 2
+                    //       ? StepState.complete
+                    //       : StepState.indexed,
+                    // ),
+                    // Step(
+                    //   title: Text('Delivered'),
+                    //   content: Text(
+                    //       'Your order has been delivered and signed by you!'),
+                    //   isActive: currentStep >= 3,
+                    //   state: currentStep >= 3
+                    //       ? StepState.complete
+                    //       : StepState.indexed,
+                    // ),
                   ],
                 ),
               ),

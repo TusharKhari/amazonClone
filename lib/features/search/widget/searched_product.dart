@@ -86,7 +86,8 @@ class SearchedProduct extends StatelessWidget {
                         left: 10,
                       ),
                       child: Text(
-                        'Eligible for free shipping',
+                        //'Eligible for free shipping',
+                        ''
                         //
                       ),
                     ),
@@ -96,7 +97,16 @@ class SearchedProduct extends StatelessWidget {
                         left: 10,
                         top: 5,
                       ),
-                      child: Text(
+                      child: 
+                      product.quantity == 0 ? Text(
+                        'Out of Stock',
+                        style: TextStyle(
+                            // fontSize: 20,
+                            // fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                        maxLines: 2,
+                      ) :
+                      Text(
                         'In Stock',
                         style: TextStyle(
                             // fontSize: 20,

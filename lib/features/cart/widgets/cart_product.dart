@@ -92,7 +92,8 @@ class _CartProductState extends State<CartProduct> {
                         left: 10,
                       ),
                       child: Text(
-                        'Eligible for free shipping',
+                        //'Eligible for free shipping',
+                        ''
                         //
                       ),
                     ),
