@@ -13,6 +13,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../account/services/account_services.dart';
+
 class AddProductScreen extends StatefulWidget {
   static const String routeName = "/add-product";
   AddProductScreen({Key? key}) : super(key: key);
@@ -86,6 +88,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
             'Add Product',
             style: TextStyle(color: Colors.black),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(onPressed: () =>  AccountServices().logOut(context), 
+              icon: Icon(Icons.logout_outlined),),
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
