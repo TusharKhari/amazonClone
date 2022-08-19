@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
 
 import 'package:amazon/common/widgets/loader.dart';
+import 'package:amazon/constants/utils.dart';
 import 'package:amazon/features/cart/services/cart_services.dart';
 import 'package:amazon/features/product_details/services/product_details_services.dart';
 import 'package:amazon/providers/user_provider.dart';
@@ -35,13 +36,10 @@ class _CartProductState extends State<CartProduct> {
     final productCart = context.watch<UserProvider>().user.cart[widget.index];
 
     final product = Product.fromMap(productCart['product']);
-    // final productQty = Product.fromMap(map)
 
     final quantity = productCart["quantity"];
     // {"product" : {}, "quantity"}
-    return 
-    //productQty == null ? Loader() :
-    GestureDetector(
+    return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, ProductDetailScreen.routeName,
             arguments: product);
@@ -75,14 +73,6 @@ class _CartProductState extends State<CartProduct> {
                         maxLines: 2,
                       ),
                     ),
-                    // Container(
-                    //     width: 235,
-                    //     padding: EdgeInsets.only(
-                    //       left: 10,
-                    //       top: 5,
-                    //     ),
-                    //    /hild: Stars(rating: avgRating),
-                    //     ),
                     Container(
                       width: 235,
                       padding: EdgeInsets.only(
@@ -112,17 +102,25 @@ class _CartProductState extends State<CartProduct> {
                         left: 10,
                         top: 5,
                       ),
-                      child: 
-                      // product == null ? Loader():
-                      Text(
-                       'In Stock',
-                     //  productQty!.quantity.toString(),
-                        style: TextStyle(
-                            // fontSize: 20,
-                            // fontWeight: FontWeight.bold,
-                            color: Colors.teal),
-                        maxLines: 2,
-                      ),
+                      child:
+                          // product == null ? Loader():
+                          product.quantity == 0.0
+                              ? Text(
+                                  'Out Of Stock \n Please remove from the cart',
+                                  style: TextStyle(
+                                      // fontSize: 20,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.red),
+                                )
+                              : Text(
+                                  'In Stock',
+                                  //  productQty!.quantity.toString(),
+                                  style: TextStyle(
+                                      // fontSize: 20,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.teal),
+                                  maxLines: 2,
+                                ),
                     ),
                   ],
                 )
@@ -184,10 +182,16 @@ class _CartProductState extends State<CartProduct> {
                       ),
                     ],
                   ),
-                )
+                ),
+                IconButton(
+                    onPressed: () {
+                      decreaseQuantity(product);
+                      showSnackBar(context, "press until quantity become zero");
+                    },
+                    icon: Icon(Icons.delete_outline_sharp))
               ],
             ),
-          )
+          ),
         ],
       ),
     );

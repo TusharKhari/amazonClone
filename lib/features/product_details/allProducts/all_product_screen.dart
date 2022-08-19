@@ -12,7 +12,7 @@ import '../screens/product_details_screen.dart';
 class AllProducts extends StatefulWidget {
   static const String routeName = '/allProducts';
   AllProducts({super.key});
-  
+
   @override
   State<AllProducts> createState() => _AllProductsState();
 }
@@ -140,62 +140,62 @@ class _AllProductsState extends State<AllProducts> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              SizedBox(
-                height: 170,
-                child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.only(left: 30),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      childAspectRatio: 1.4,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemCount: allProductList!.length,
-                    itemBuilder: (context, index) {
-                      final product = allProductList![index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, ProductDetailScreen.routeName,
-                              arguments: product);
-                        },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 130,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black12,
-                                    width: 0.5,
-                                  ),
+              GridView.builder(
+                  shrinkWrap: true,
+                  // scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(left: 30),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    // childAspectRatio: 1.4,
+                    // mainAxisSpacing: 10,
+                  ),
+                  itemCount: allProductList!.length,
+                  itemBuilder: (context, index) {
+                    final product = allProductList![index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, ProductDetailScreen.routeName,
+                            arguments: product);
+                      },
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 158,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black12,
+                                  width: 0.5,
                                 ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Image.network(
-                                    product.images[0],
-                                  ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image.network(
+                                  product.images[0],
+                                  width: 150,
+                                  fit: BoxFit.fitWidth,
                                 ),
                               ),
                             ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              padding: EdgeInsets.only(
-                                left: 0,
-                                top: 5,
-                                right: 15,
-                              ),
-                              child: Text(
-                                product.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            padding: EdgeInsets.only(
+                              left: 0,
+                              top: 5,
+                              right: 15,
                             ),
-                          ],
-                        ),
-                      );
-                    }),
-              ),
+                            child: Text(
+                              product.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
             ]),
     );
   }

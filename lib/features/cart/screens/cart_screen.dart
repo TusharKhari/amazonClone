@@ -1,19 +1,20 @@
-import 'package:amazon/common/widgets/custom_button.dart';
-import 'package:amazon/features/address/screens/address_screen.dart';
-import 'package:amazon/features/admin/screens/add_product_screen.dart';
-import 'package:amazon/features/cart/widgets/cart_product.dart';
-import 'package:amazon/features/cart/widgets/cart_subtotal.dart';
-import 'package:amazon/features/home/widgets/address_box.dart';
+
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/widgets/custom_button.dart';
 import '../../../constants/global_variable.dart';
 import '../../../providers/user_provider.dart';
+import '../../address/screens/address_screen.dart';
+import '../../home/widgets/address_box.dart';
 import '../../search/screens/search_screen.dart';
-// ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
+import '../widgets/cart_product.dart';
+import '../widgets/cart_subtotal.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({Key? key}) : super(key: key);
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -37,15 +38,15 @@ class _CartScreenState extends State<CartScreen> {
     final user = context.watch<UserProvider>().user;
     int sum = 0;
     user.cart
-        .map((e) => sum += e['quantity'] * e["product"]['price'] as int)
+        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
         .toList();
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: const Size.fromHeight(60),
         child: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
@@ -55,51 +56,50 @@ class _CartScreenState extends State<CartScreen> {
               Expanded(
                 child: Container(
                   height: 42,
-                  margin: EdgeInsets.only(left: 15),
-                  child:
-                      // material class is used for elevation
-                      Material(
+                  margin: const EdgeInsets.only(left: 15),
+                  child: Material(
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
                       onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
-                          prefixIcon: InkWell(
-                            onTap: () {},
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 6),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                                size: 23,
-                              ),
+                        prefixIcon: InkWell(
+                          onTap: () {},
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                              left: 6,
+                            ),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.black,
+                              size: 23,
                             ),
                           ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.only(
-                            top: 10,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.only(top: 10),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(7),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(7),
-                            ),
-                            borderSide: BorderSide.none,
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(7),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(7),
-                            ),
-                            borderSide: BorderSide(
-                              color: Colors.black38,
-                              width: 1,
-                            ),
+                          borderSide: BorderSide(
+                            color: Colors.black38,
+                            width: 1,
                           ),
-                          hintText: 'Search Amazon.Khari',
-                          hintStyle: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17,
-                          )),
+                        ),
+                        hintText: 'Search Amazon.in',
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -107,52 +107,47 @@ class _CartScreenState extends State<CartScreen> {
               Container(
                 color: Colors.transparent,
                 height: 42,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-                child: Icon(
-                  Icons.mic,
-                  color: Colors.black,
-                  size: 25,
-                ),
-              )
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                child: const Icon(Icons.mic, color: Colors.black, size: 25),
+              ),
             ],
           ),
         ),
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          AddressBox(),
-          CartSubtotal(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomButton(
-              text: "Proceed to Buy (${user.cart.length}) items",
-              onTap: () {
-                navigateToAddress(sum);
-              },
-              color: Colors.yellow[600],
+        child: Column(
+          children: [
+            const AddressBox(),
+            const CartSubtotal(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomButton(
+                text: 'Proceed to Buy (${user.cart.length} items)',
+                onTap: () => navigateToAddress(sum),
+                color: Colors.yellow[600],
+              ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Container(
-            color: Colors.black.withOpacity(0.08),
-            height: 1,
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          ListView.builder(
-              shrinkWrap: true,
+            const SizedBox(height: 15),
+            Container(
+              color: Colors.black12.withOpacity(0.08),
+              height: 1,
+            ),
+            const SizedBox(height: 5),
+            ListView.builder(
               itemCount: user.cart.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
-                return CartProduct(index: index);
-              })
-        ],
-      )),
+                return CartProduct(
+                  index: index,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
+
+
+

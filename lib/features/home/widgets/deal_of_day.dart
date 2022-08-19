@@ -22,6 +22,14 @@ class _DealOfDayState extends State<DealOfDay> {
     Navigator.pushNamed(context, AllProducts.routeName);
   }
 
+  void navigateToDetailsScreen() {
+    Navigator.pushNamed(
+      context,
+      ProductDetailScreen.routeName,
+      arguments: product,
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,13 +51,6 @@ class _DealOfDayState extends State<DealOfDay> {
     setState(() {});
   }
 
-  void navigateToDetailsScreen() {
-    Navigator.pushNamed(
-      context,
-      ProductDetailScreen.routeName,
-      arguments: product,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,19 +168,7 @@ class _DealOfDayState extends State<DealOfDay> {
                     //     ),
                     //   ),
                     // ),
-                    ElevatedButton(
-                        onPressed: () {
-                          navigateToAllProducts(context);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Explore all the products >',
-                            style: TextStyle(
-                              fontSize: 22,
-                            ),
-                          ),
-                        ))
+                   
                     //   FutureBuilder(
                     // future: homeServices.fetchAllProducts(context: context),
                     // builder: ((context, snapshot) {

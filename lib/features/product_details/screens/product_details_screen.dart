@@ -207,7 +207,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                     children: [
                       TextSpan(
-                        text: ' \$${widget.product.price}',
+                        text: ' ₹ ${widget.product.price}',
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.orange,

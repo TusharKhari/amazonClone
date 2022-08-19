@@ -60,6 +60,7 @@ class _PostScreenState extends State<PostScreen> {
                 final productData = products![index];
                 return Column(
                   children: [
+                    Text(productData.quantity.toString()),
                     SizedBox(
                       height: 140,
                       child: SingleProduct(image: productData.images[0]),

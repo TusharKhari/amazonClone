@@ -6,8 +6,11 @@ import 'package:amazon/features/home/widgets/carousel_slider.dart';
 import 'package:amazon/features/home/widgets/deal_of_day.dart';
 import 'package:amazon/features/home/widgets/top_categories.dart';
 import 'package:amazon/features/search/screens/search_screen.dart';
+import 'package:amazon/models/product.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/global_variable.dart';
+import '../../product_details/allProducts/all_product_screen.dart';
+import '../../product_details/screens/product_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -19,8 +22,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeServices homeServices = HomeServices();
+  Product? product;
+  void navigateToAllProducts(BuildContext context) {
+    Navigator.pushNamed(context, AllProducts.routeName);
+  }
+
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  void navigateToDetailsScreen() {
+    Navigator.pushNamed(
+      context,
+      ProductDetailScreen.routeName,
+      arguments: product,
+    );
   }
 
   @override
@@ -98,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: InkWell(
                     onTap: () {
-                    //  homeServices.fetchAllProducts(context: context);
+                      //  homeServices.fetchAllProducts(context: context);
                     },
                     child: Icon(
                       Icons.mic,
@@ -126,6 +142,23 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CarouselImage(),
               DealOfDay(),
+              Divider(
+                thickness: 2,
+                color: Colors.black12,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    navigateToAllProducts(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Explore all the products >',
+                      style: TextStyle(
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),),
               // FutureBuilder(
               //     future: homeServices.fetchAllProducts(context: context),
               //     builder: ((context, snapshot) {
