@@ -131,10 +131,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
         ),
       ),
-      body: 
-      //user.type == "admin" &&
-      // widget.order.status < 2 ? SizedBox() :
-       SingleChildScrollView(
+      body:
+          //user.type == "admin" &&
+          // widget.order.status < 2 ? SizedBox() :
+          SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -186,35 +186,41 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     for (int i = 0; i < widget.order.products.length; i++)
-                      Row(
-                        children: [
-                          Image.network(
-                            widget.order.products[i].images[0],
-                            height: 120,
-                            width: 120,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.order.products[i].name,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  "Qty: ${widget.order.quantity[i]}",
-                                ),
-                              ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              widget.order.products[i].images[0],
+                              height: 120,
+                              width: 200,
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.order.products[i].name,
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    "Qty: ${widget.order.quantity[i]}",
+                                  ),
+                                  // Divider(
+                                  //   thickness: 5,
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                   ],
                 ),
@@ -259,8 +265,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     ),
                     Step(
                       title: Text('Completed'),
-                      content: Text(
-                          'Your order has been Packed and Shipped'),
+                      content: Text('Your order has been Packed and Shipped'),
                       isActive: currentStep >= 1,
                       state: currentStep >= 1
                           ? StepState.complete

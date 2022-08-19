@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -134,20 +131,22 @@ class _CartScreenState extends State<CartScreen> {
             ),
             const SizedBox(height: 5),
             ListView.builder(
-              itemCount: user.cart.length,
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
+              itemCount: user.cart.length,
+              // shrinkWrap: true,
               itemBuilder: (context, index) {
                 return CartProduct(
                   index: index,
                 );
               },
             ),
+            const SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),
     );
   }
 }
-
-
-
