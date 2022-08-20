@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeServices homeServices = HomeServices();
+ // HomeServices homeServices = HomeServices();
   Product? product;
   void navigateToAllProducts(BuildContext context) {
     Navigator.pushNamed(context, AllProducts.routeName);

@@ -37,6 +37,7 @@ class AdminServices {
             images[i].path,
             folder: name,
           ),
+          
         );
 
         imageUrls.add(res.secureUrl);
@@ -126,8 +127,6 @@ class AdminServices {
           "id": product.id,
         }),
       );
-
-    //  final res1 = await cloudinary.
       final res1 = await cloudinary.deleteResources(
         urls:  product.images,
         resourceType:cloudinarySdk.CloudinaryResourceType.image,

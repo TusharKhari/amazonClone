@@ -7,6 +7,8 @@ import 'package:amazon/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../account/services/account_services.dart';
+import '../../product_details/allProducts/all_product_screen.dart';
+import '../../search/screens/search_screen.dart';
 
 class AdminScreen extends StatefulWidget {
   AdminScreen({Key? key}) : super(key: key);
@@ -38,6 +40,14 @@ class _AdminScreenState extends State<AdminScreen> {
     });
   }
 
+//  void navigateToAllProducts(BuildContext context) {
+//     Navigator.pushNamed(context, AllProducts.routeName);
+//   }
+
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +66,68 @@ class _AdminScreenState extends State<AdminScreen> {
                 alignment: Alignment.topLeft,
                 child: Image.asset(
                   'assets/images/amazon_in.png',
-                  width: 120,
+                  width: 80,
                   height: 45,
                   color: Colors.black,
                 ),
               ),
+              _page == 0 ?
+              Expanded(
+                child: Container(
+                  height: 42,
+                  margin: EdgeInsets.only(left: 15),
+                  child:
+                      // material class is used for elevation
+                      Material(
+                    borderRadius: BorderRadius.circular(7),
+                    elevation: 1,
+                    child: TextFormField(
+                      cursorHeight: 0,
+                      cursorWidth: 0,
+                     // enabled: false,
+                      onFieldSubmitted: navigateToSearchScreen,
+                      decoration: InputDecoration(
+                          // prefixIcon: InkWell(
+                          //   onTap: () {},
+                          //   child: Padding(
+                          //     padding: EdgeInsets.only(left: 6),
+                          //     child: Icon(
+                          //       Icons.search,
+                          //       color: Colors.black,
+                          //       size: 23,
+                          //     ),
+                          //   ),
+                          // ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.only(
+                            top: 10,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(7),
+                            ),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(7),
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.black38,
+                              width: 1,
+                            ),
+                          ),
+                          hintText: 'Search Amazon.Khari',
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                          )),
+                    ),
+                  ),
+                ),
+              ) : SizedBox(),
+              SizedBox(width: 5),
               Text(
                 'Admin',
                 style:
@@ -70,7 +137,7 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(0),
               child: IconButton(
                 onPressed: () => AccountServices().logOut(context),
                 icon: Icon(Icons.logout_outlined),

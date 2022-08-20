@@ -4,6 +4,8 @@ import 'package:amazon/features/admin/screens/add_product_screen.dart';
 import 'package:amazon/features/admin/services/admin_services.dart';
 import 'package:amazon/models/product.dart';
 import 'package:flutter/material.dart';
+
+import '../../product_details/screens/product_details_screen.dart';
 // ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
 
 class PostScreen extends StatefulWidget {
@@ -45,6 +47,15 @@ class _PostScreenState extends State<PostScreen> {
     Navigator.pushNamed(context, AddProductScreen.routeName);
   }
 
+  // Product? product;
+  // void navigateToDetailsScreen() {
+  //   Navigator.pushNamed(
+  //     context,
+  //     ProductDetailScreen.routeName,
+  //     arguments: product,
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return products == null
@@ -58,47 +69,51 @@ class _PostScreenState extends State<PostScreen> {
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
                 final productData = products![index];
-                return Column(
-                  children: [
-                    //    Text(productData.quantity.t)
-                    SizedBox(
-                      height: 140,
-                      child: SingleProduct(image: productData.images[0]),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            productData.name,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
+                return InkWell(
+                //  onTap: navigateToDetailsScreen,
+                  child: Column(
+                    children: [
+                      //    Text(productData.quantity.t)
+                      SizedBox(
+                        height: 140,
+                        child: SingleProduct(image: productData.images[0]),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(width: 5),
+                          Expanded(
+                            child: Text(
+                              productData.name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
                           ),
-                        ),
-                        productData.quantity == 0.0
-                            ? Text(
-                                'out of stock',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.red,
+                          productData.quantity == 0.0
+                              ? Text(
+                                  'out of stock',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.red,
+                                  ),
+                                )
+                              : Text(
+                                  "Avl Qty: ${productData.quantity.toInt()}",
+                                  style:
+                                      TextStyle(fontSize: 16, color: Colors.teal),
                                 ),
-                              )
-                            : Text(
-                                "Avl Qty: ${productData.quantity.toInt()}",
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.teal),
-                              ),
-                        IconButton(
-                          onPressed: () {
-                            deleteProduct(productData, index);
-                          },
-                          icon: Icon(
-                            Icons.delete_outline,
+                          IconButton(
+                            onPressed: () {
+                              deleteProduct(productData, index);
+                            },
+                            icon: Icon(
+                              Icons.delete_outline,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
