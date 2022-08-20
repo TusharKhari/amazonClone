@@ -5,11 +5,10 @@ import 'package:amazon/features/admin/services/admin_services.dart';
 import 'package:amazon/models/product.dart';
 import 'package:flutter/material.dart';
 
-import '../../product_details/screens/product_details_screen.dart';
-// ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
+//// ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
 
 class PostScreen extends StatefulWidget {
-  PostScreen({Key? key}) : super(key: key);
+ const  PostScreen({Key? key}) : super(key: key);
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -59,14 +58,14 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     return products == null
-        ? Loader()
+        ? const Loader()
         : Scaffold(
             body:
                 //
                 GridView.builder(
               itemCount: products!.length,
               gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                const  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
                 final productData = products![index];
                 return InkWell(
@@ -81,7 +80,7 @@ class _PostScreenState extends State<PostScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SizedBox(width: 5),
+                        const  SizedBox(width: 5),
                           Expanded(
                             child: Text(
                               productData.name,
@@ -90,7 +89,7 @@ class _PostScreenState extends State<PostScreen> {
                             ),
                           ),
                           productData.quantity == 0.0
-                              ? Text(
+                              ? const Text(
                                   'out of stock',
                                   style: TextStyle(
                                     fontSize: 18,
@@ -100,13 +99,13 @@ class _PostScreenState extends State<PostScreen> {
                               : Text(
                                   "Avl Qty: ${productData.quantity.toInt()}",
                                   style:
-                                      TextStyle(fontSize: 16, color: Colors.teal),
+                                    const  TextStyle(fontSize: 16, color: Colors.teal),
                                 ),
                           IconButton(
                             onPressed: () {
                               deleteProduct(productData, index);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete_outline,
                             ),
                           ),
@@ -119,10 +118,10 @@ class _PostScreenState extends State<PostScreen> {
             ),
 
             // Text('product'),
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton:  FloatingActionButton(
               onPressed: navigateToAddProduct,
               tooltip: "Add a Product",
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
