@@ -161,7 +161,7 @@ class _AllProductsState extends State<AllProducts> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 158,
+                            height: 150,
                             child: DecoratedBox(
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -186,10 +186,20 @@ class _AllProductsState extends State<AllProducts> {
                               top: 5,
                               right: 15,
                             ),
-                            child: Text(
-                              product.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  product.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  product.price.toString(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           ),
                         ],

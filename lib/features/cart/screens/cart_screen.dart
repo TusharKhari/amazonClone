@@ -37,7 +37,8 @@ class _CartScreenState extends State<CartScreen> {
     user.cart
         .map((e) => sum += e['quantity'] * e['product']['price'] as int)
         .toList();
-
+    var size = MediaQuery.of(context).size;
+   // print("height ${size.height}");
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -111,27 +112,29 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AddressBox(),
-            const CartSubtotal(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomButton(
-                text: 'Proceed to Buy (${user.cart.length} items)',
-                onTap: () => navigateToAddress(sum),
-                color: Colors.yellow[600],
-              ),
+      body: Column(
+        children: [
+          const AddressBox(),
+          const CartSubtotal(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomButton(
+              text: 'Proceed to Buy (${user.cart.length} items)',
+              onTap: () => navigateToAddress(sum),
+              color: Colors.yellow[600],
             ),
-            const SizedBox(height: 15),
-            Container(
-              color: Colors.black12.withOpacity(0.08),
-              height: 1,
-            ),
-            const SizedBox(height: 5),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+          ),
+          const SizedBox(height: 15),
+          Container(
+            color: Colors.black12.withOpacity(0.08),
+            height: 1,
+          ),
+          const SizedBox(height: 5),
+          SizedBox(
+            //height: 352,
+            height: size.height * 0.52,
+            child: ListView.builder(
+              //physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: user.cart.length,
               // shrinkWrap: true,
@@ -141,11 +144,11 @@ class _CartScreenState extends State<CartScreen> {
                 );
               },
             ),
-            const SizedBox(
-              height: 50,
-            )
-          ],
-        ),
+          ),
+          // const SizedBox(
+          //   height: 50,
+          // )
+        ],
       ),
     );
   }

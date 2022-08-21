@@ -234,6 +234,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   text: 'Sell',
                   onTap: sellProduct,
                 ),
+                SizedBox(height: 5,),
               ],
             ),
           ),

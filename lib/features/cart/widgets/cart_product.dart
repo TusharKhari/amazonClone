@@ -33,6 +33,7 @@ class _CartProductState extends State<CartProduct> {
 
   @override
   Widget build(BuildContext context) {
+    
     final productCart = context.watch<UserProvider>().user.cart[widget.index];
 
     final product = Product.fromMap(productCart['product']);
@@ -56,7 +57,7 @@ class _CartProductState extends State<CartProduct> {
                   product.images[0],
                   fit: BoxFit.contain,
                   height: 135,
-                  width: 135,
+                  width: 120,
                 ),
                 Column(
                   children: [
@@ -92,10 +93,10 @@ class _CartProductState extends State<CartProduct> {
                         left: 10,
                       ),
                       child: Text(
-                        //'Eligible for free shipping',
-                        ''
-                        //
-                      ),
+                          //'Eligible for free shipping',
+                          ''
+                          //
+                          ),
                     ),
                     Container(
                       width: 235,

@@ -37,7 +37,6 @@ class AdminServices {
             images[i].path,
             folder: name,
           ),
-          
         );
 
         imageUrls.add(res.secureUrl);
@@ -67,6 +66,7 @@ class AdminServices {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Product added successfully');
+          fetchAllProducts(context);
           Navigator.pop(context);
         },
       );
@@ -115,7 +115,10 @@ class AdminServices {
       required Product product,
       required VoidCallback onSuccess}) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
-    final cloudinary = cloudinarySdk.Cloudinary.full(apiKey: "532858492696328", apiSecret: "4U5O64yLm_tHpXkqhVYLyiqCkXE", cloudName: "dgps2a3mu");
+    final cloudinary = cloudinarySdk.Cloudinary.full(
+        apiKey: "532858492696328",
+        apiSecret: "4U5O64yLm_tHpXkqhVYLyiqCkXE",
+        cloudName: "dgps2a3mu");
     try {
       http.Response res = await http.post(
         Uri.parse("$uri/admin/delete-product"),
@@ -128,8 +131,8 @@ class AdminServices {
         }),
       );
       final res1 = await cloudinary.deleteResources(
-        urls:  product.images,
-        resourceType:cloudinarySdk.CloudinaryResourceType.image,
+        urls: product.images,
+        resourceType: cloudinarySdk.CloudinaryResourceType.image,
         prefix: product.name,
       );
       httpErrorHandle(

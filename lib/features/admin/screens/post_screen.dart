@@ -4,11 +4,12 @@ import 'package:amazon/features/admin/screens/add_product_screen.dart';
 import 'package:amazon/features/admin/services/admin_services.dart';
 import 'package:amazon/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 //// ignore_for_file: prefer_const_literals_to_create_immutables,prefer_const_constructors_in_immutables, camel_case_types,prefer_const_constructors
 
 class PostScreen extends StatefulWidget {
- const  PostScreen({Key? key}) : super(key: key);
+  const PostScreen({Key? key}) : super(key: key);
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -46,6 +47,11 @@ class _PostScreenState extends State<PostScreen> {
     Navigator.pushNamed(context, AddProductScreen.routeName);
   }
 
+  Future<void> _onRefresh() async {
+    fetchAllProducts();
+    return await Future.delayed(const Duration(seconds: 2));
+  }
+
   // Product? product;
   // void navigateToDetailsScreen() {
   //   Navigator.pushNamed(
@@ -59,72 +65,75 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return products == null
         ? const Loader()
-        : Scaffold(
-            body:
-                //
-                GridView.builder(
-              itemCount: products!.length,
-              gridDelegate:
-                const  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemBuilder: (context, index) {
-                final productData = products![index];
-                return InkWell(
-                //  onTap: navigateToDetailsScreen,
-                  child: Column(
-                    children: [
-                      //    Text(productData.quantity.t)
-                      SizedBox(
-                        height: 140,
-                        child: SingleProduct(image: productData.images[0]),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                        const  SizedBox(width: 5),
-                          Expanded(
-                            child: Text(
-                              productData.name,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
+        : LiquidPullToRefresh(
+            onRefresh: _onRefresh,
+            child: Scaffold(
+              body:
+                  //
+                  GridView.builder(
+                itemCount: products!.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
+                  final productData = products![index];
+                  return InkWell(
+                    //  onTap: navigateToDetailsScreen,
+                    child: Column(
+                      children: [
+                        //    Text(productData.quantity.t)
+                        SizedBox(
+                          height: 135,
+                          child: SingleProduct(image: productData.images[0]),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: Text(
+                                productData.name,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
                             ),
-                          ),
-                          productData.quantity == 0.0
-                              ? const Text(
-                                  'out of stock',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.red,
+                            productData.quantity == 0.0
+                                ? const Text(
+                                    'out of stock',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.red,
+                                    ),
+                                  )
+                                : Text(
+                                    "Avl Qty: ${productData.quantity.toInt()}",
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Colors.teal),
                                   ),
-                                )
-                              : Text(
-                                  "Avl Qty: ${productData.quantity.toInt()}",
-                                  style:
-                                    const  TextStyle(fontSize: 16, color: Colors.teal),
-                                ),
-                          IconButton(
-                            onPressed: () {
-                              deleteProduct(productData, index);
-                            },
-                            icon: const Icon(
-                              Icons.delete_outline,
+                            IconButton(
+                              onPressed: () {
+                                deleteProduct(productData, index);
+                              },
+                              icon: const Icon(
+                                Icons.delete_outline,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
 
-            // Text('product'),
-            floatingActionButton:  FloatingActionButton(
-              onPressed: navigateToAddProduct,
-              tooltip: "Add a Product",
-              child: const Icon(Icons.add),
+              // Text('product'),
+              floatingActionButton: FloatingActionButton(
+                onPressed: navigateToAddProduct,
+                tooltip: "Add a Product",
+                child: const Icon(Icons.add),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
             ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
           );
   }
 }
