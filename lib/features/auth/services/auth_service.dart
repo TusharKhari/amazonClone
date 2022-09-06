@@ -55,6 +55,7 @@ class AuthService {
   }
 
   // sign up user
+  
   void SignInUser({
     required BuildContext context,
     required String email,

@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- // HomeServices homeServices = HomeServices();
+  // HomeServices homeServices = HomeServices();
   Product? product;
   void navigateToAllProducts(BuildContext context) {
     Navigator.pushNamed(context, AllProducts.routeName);
@@ -132,6 +132,13 @@ class _HomeScreenState extends State<HomeScreen> {
             SingleChildScrollView(
           child: Column(
             children: [
+              Text(
+                'Type a Double Story',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.green,
+                ),
+              ),
               AddressBox(),
               SizedBox(
                 height: 10,
@@ -147,18 +154,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.black12,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    navigateToAllProducts(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Explore all the products >',
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
+                onPressed: () {
+                  navigateToAllProducts(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Explore all the products >',
+                    style: TextStyle(
+                      fontSize: 22,
                     ),
-                  ),),
+                  ),
+                ),
+              ),
               // FutureBuilder(
               //     future: homeServices.fetchAllProducts(context: context),
               //     builder: ((context, snapshot) {
